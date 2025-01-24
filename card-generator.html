@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Education Futures Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .card {
+            width: 250px;
+            height: 300px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: top;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .arc { 
+            background-color: #90EE90; 
+            background-image: linear-gradient(45deg, #90EE90, #98FB98);
+        }
+        .object { 
+            background-color: #87CEEB; 
+            background-image: linear-gradient(45deg, #87CEEB, #B0E0E6);
+        }
+        .terrain { 
+            background-color: #FFB6C1; 
+            background-image: linear-gradient(45deg, #FFB6C1, #FFA07A);
+        }
+        
+        #container {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 900px;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        h1 { 
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin: 0 auto 20px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        .instructions {
+            text-align: center;
+            color: #444;
+            margin: 0 auto 30px;
+            max-width: 800px;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .card-explanation {
+            text-align: left;
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .card-explanation h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .card-explanation ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .card-explanation li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .card-explanation li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Education Futures Generator</h1>
+    <div class="subtitle">
+        This generator is based on 'The Thing From the Future', which is an imagination game meant to spur creative and critical thinking.
+    </div>
+    <div class="instructions">
+        Instructions: To use this generator, simply click on 'Generate Scenario' below to get a different aspect for each of the three cards. Using these aspects, you are asked to imagine and build a story that takes place in the year 2045.
+    </div>
+    <div id="container">
+        <div id="arc" class="card arc">
+            <h2>ARC</h2>
+            <p id="arcText">Click 'Generate Scenario' to start</p>
+        </div>
+        <div id="object" class="card object">
+            <h2>OBJECT</h2>
+            <p id="objectText">Click 'Generate Scenario' to start</p>
+        </div>
+        <div id="terrain" class="card terrain">
+            <h2>TERRAIN</h2>
+            <p id="terrainText">Click 'Generate Scenario' to start</p>
+        </div>
+        <br>
+        <button onclick="dealCards()">Generate Scenario</button>
+        
+        <div class="card-explanation">
+            <h3>About the card decks:</h3>
+            <ul>
+                <li><strong>ARC</strong> outlines the type of future world that the "thing" comes from, and how far away it is from today.</li>
+                <li><strong>OBJECT</strong> is the focus for your imagination: a specific cultural artifact that reveals something about how this future is different from today.</li>
+                <li><strong>TERRAIN</strong> is the thematic context or location where this object could be found in that future.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        Idea based on The Thing from the Future by Situation Lab // Card generator inspired by the Innovation Studio at NC State University Libraries (<a href="https://ncsu-libraries.github.io/the-thing-from-the-future/" target="_blank">https://ncsu-libraries.github.io/the-thing-from-the-future/</a>)
+    </div>
+
+    <script>
+        const arcs = [
+            "In a future where AI tutors are primary educators",
+            "In a future where traditional schools no longer exist",
+            "In a future where learning is entirely experiential",
+            "In a future where knowledge is directly downloadable",
+            "In a future where education is completely personalized",
+            "In a future where global classrooms are the norm",
+            "In a future where credentials are blockchain-based",
+            "In a future where students design their own curriculum",
+            "In a future where assessment is continuous and invisible",
+            "In a future where learning happens in the metaverse",
+            "In a future where skills matter more than degrees",
+            "In a future where AI and humans co-teach every subject",
+            "In a future where learning is a lifelong subscription"
+        ];
+        
+        const objects = [
+            "there exists an AI emotion coach for student wellbeing",
+            "there exists a neural link for instant skill acquisition",
+            "there exists a holographic teaching assistant",
+            "there exists a personal learning algorithm curator",
+            "there exists a virtual reality field trip platform",
+            "there exists an automated feedback system",
+            "there exists a collective intelligence learning network",
+            "there exists a skill verification blockchain",
+            "there exists a cognitive load optimizer",
+            "there exists a cross-cultural learning matchmaker",
+            "there exists a knowledge gap predictor",
+            "there exists an augmented reality study space",
+            "there exists a project-based learning simulator",
+            "there exists a peer learning recommender system",
+            "there exists a metacognition enhancement tool"
+        ];
+        
+        const terrains = [
+            "in a context where learning styles are predicted at birth",
+            "in a context where attention is the new currency",
+            "in a context where work and learning are inseparable",
+            "in a context where age-based grouping is obsolete",
+            "in a context where every space is a potential classroom",
+            "in a context where assessment is peer-driven",
+            "in a context where AI mentors never sleep",
+            "in a context where knowledge evolves daily",
+            "in a context where creativity outweighs memorization",
+            "in a context where learning is community-driven",
+            "in a context where failure is celebrated as growth",
+            "in a context where education has no boundaries",
+            "in a context where technology adapts to learners",
+            "in a context where every interaction is a learning moment"
+        ];
+        
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function dealCards() {
+            document.getElementById('arcText').textContent = getRandomItem(arcs);
+            document.getElementById('objectText').textContent = getRandomItem(objects);
+            document.getElementById('terrainText').textContent = getRandomItem(terrains);
+        }
+    </script>
+</body>
+</html>
