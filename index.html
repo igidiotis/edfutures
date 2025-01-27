@@ -274,10 +274,32 @@
         <div id="writingSpace" class="writing-space">
             <h3>Develop Your Scenario</h3>
             <div class="captured-elements"></div>
+            <div class="section-title">
+                <h4 style="margin: 0;">Write your story here</h4>
+                <button class="help-button" onclick="openHelpModal()">?</button>
+            </div>
             <textarea id="scenarioText" placeholder="Start developing your scenario here..."></textarea>
             <div class="action-buttons">
                 <button class="submit-btn" onclick="submitToForm()">Submit to Form</button>
                 <button class="copy-btn" onclick="copyScenario()">Copy to Clipboard</button>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeHelpModal()">&times;</button>
+                <h3>Writing Tips for Your Future Scenario</h3>
+                <ul>
+                    <li><strong>Set the Scene:</strong> Begin by describing how this future looks and feels. What's different from today? What's familiar?</li>
+                    <li><strong>Focus on the Object:</strong> Explain how people interact with the mentioned object. What problems does it solve? What new challenges might it create?</li>
+                    <li><strong>Consider the Context:</strong> Think about how the TERRAIN affects the story. How does the specified context influence people's behaviors and interactions?</li>
+                    <li><strong>Capture the Mood:</strong> Reflect the emotional atmosphere in your writing. How do people feel about living in this future?</li>
+                    <li><strong>Include Characters:</strong> Consider introducing a character experiencing this future. What's their perspective on these changes?</li>
+                    <li><strong>Educational Impact:</strong> Think about how learning and teaching have evolved. What new possibilities or challenges exist?</li>
+                    <li><strong>Show, Don't Tell:</strong> Instead of just stating facts, create vivid descriptions and specific examples of how this future works.</li>
+                    <li><strong>Consider Consequences:</strong> What are the broader implications of this future for society, culture, and human relationships?</li>
+                </ul>
             </div>
         </div>
 
@@ -404,6 +426,39 @@
             // Scroll to the writing space
             writingSpace.scrollIntoView({ behavior: 'smooth' });
         }
+
+        function closeHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+        }
+
+        function openHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('helpModal');
+            if (event.target == modal) {
+                closeHelpModal();
+            }
+        }
+
+        // Close modal with Escape key
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeHelpModal();
+            }
+        });
+
+        // Initialize modal state
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('helpModal');
+            modal.style.display = 'none';
+        });
 
         function submitToForm() {
             // Get all the required values
