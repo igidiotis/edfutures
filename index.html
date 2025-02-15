@@ -10,7 +10,53 @@
             margin: 0;
             padding: 20px;
         }
+.consent-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+}
 
+.consent-button {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.consent-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 300px;
+    max-width: 600px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 4px;
+    z-index: 1;
+    text-align: left;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.consent-dropdown:hover .consent-content {
+    display: block;
+}
+
+.consent-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.consent-content p {
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+        
         /* Card styling */
         .card {
             width: 180px;
@@ -324,6 +370,32 @@
     </div>
     <div class="subtitle">
         This generator is based on 'The Thing From the Future', which is an imagination game meant to spur creative and critical thinking.
+    </div>
+    <div class="consent-dropdown">
+        <button class="consent-button">Research Participation Information ▼</button>
+        <div class="consent-content">
+            <h3>Consent to Participate in Research</h3>
+            
+            <p><strong>Purpose:</strong> You are invited to participate in a research project collecting speculative stories based on randomly generated elements. This research aims to [your specific research purpose].</p>
+            
+            <p><strong>What you will do:</strong> You will receive four random elements from different categories and write a short speculative story incorporating these elements. Your story will be submitted through a Google Form.</p>
+            
+            <p><strong>Data Usage & Privacy:</strong>
+            - Your story will be used for research purposes only
+            - No personal identifying information will be collected
+            - Submissions are anonymous
+            - Stories may be quoted in research publications, presentations, or teaching materials</p>
+            
+            <p><strong>Voluntary Participation:</strong> Your participation is entirely voluntary. You can choose not to submit your story at any point.</p>
+            
+            <p><strong>Withdrawal Rights:</strong> If you wish to withdraw your submitted story from the research, please contact [your contact information] with the timestamp of your submission.</p>
+            
+            <p><strong>Data Storage:</strong> Stories will be stored securely and accessed only by the research team.</p>
+            
+            <p><strong>Questions or Concerns:</strong> For any questions about this research, please contact [your/your institution's contact information].</p>
+            
+            <p><em>By submitting a story through the Google Form, you confirm that you have read this information and consent to participate in this research under these terms.</em></p>
+        </div>
     </div>
     <div class="instructions">
         Instructions: To use this generator, simply click on 'Generate Scenario' below to get a different aspect for each of the four cards. Using these aspects, you are asked to imagine and build a story that takes place in the year 2045.
