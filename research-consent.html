@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Participation Information</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background-color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .consent-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .contact-info {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.2rem;
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tool-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .consent-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Research Participation Information</h1>
+    </div>
+    
+    <div class="container">
+        <div class="consent-content">
+            <div class="section">
+                <h2>Consent to Participate in Research</h2>
+                
+                <div class="highlight-box">
+                    <h3>Purpose</h3>
+                    <p>You are invited to participate in a research project collecting speculative stories based on randomly generated elements. This research aims to investigate how educators and educational stakeholders envision the socio-technical implications of AI in future learning environments through a structured scenario-building tool.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>What You Will Do</h3>
+                <p>You will receive four random elements from different categories and write a short speculative story incorporating these elements. Your story will be submitted through a Google Form, embedded into the story creation tool.</p>
+            </div>
+
+            <div class="section">
+                <h3>Data Usage & Privacy</h3>
+                <ul>
+                    <li>Your story will be used for research purposes only</li>
+                    <li>No personal identifying information will be collected for the processing of the stories</li>
+                    <li>We collect minimal demographic information solely for understanding our tool's audience</li>
+                    <li>Text submissions are anonymous; contact information is optional and voluntary</li>
+                    <li>Stories may be quoted in research publications and presentations, without any identifying information</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Your Rights</h3>
+                <p><strong>Voluntary Participation:</strong> Your participation is entirely voluntary. You can choose not to submit your story at any point.</p>
+                <p><strong>Withdrawal Rights:</strong> If you wish to withdraw your submitted story from the research, please contact us with the timestamp of your submission.</p>
+            </div>
+
+            <div class="section">
+                <h3>Data Security</h3>
+                <p>Stories will be stored securely and accessed only by the research team.</p>
+            </div>
+
+            <div class="contact-info">
+                <h3>Questions or Concerns?</h3>
+                <p>For any questions about this research, please contact: <a href="mailto:gidiotis@kth.se">gidiotis@kth.se</a></p>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <p><em>By submitting a story through the tool below, you confirm that you have read this information and consent to participate in this research under these terms.</em></p>
+            </div>
+
+            <a href="https://igidiotis.github.io/edfutures/" class="tool-link">
+                Access the Story Creation Tool
+            </a>
+        </div>
+    </div>
+</body>
+</html>
