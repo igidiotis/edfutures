@@ -680,13 +680,13 @@ function submitToForm() {
 
     // Construct the Tally Form URL with parameters
     const baseURL = 'https://tally.so/r/3jk5vY';
-    const params = new URLSearchParams({
-        'arc': arc,
-        'object': object,
-        'terrain': terrain,
-        'mood': mood,
-        'created-scenario-text': story
-    });
+    // Encode each parameter to handle special characters
+    const params = new URLSearchParams();
+    params.append('arc', encodeURIComponent(arc));
+    params.append('object', encodeURIComponent(object));
+    params.append('terrain', encodeURIComponent(terrain));
+    params.append('mood', encodeURIComponent(mood));
+    params.append('story', encodeURIComponent(story));
 
     // Open the form in a new tab
     window.open(`${baseURL}?${params.toString()}`, '_blank');
