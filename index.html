@@ -665,33 +665,33 @@ const moods = [
         });
 
         function submitToForm() {
-            // Get all the required values
-            const arc = document.getElementById('arcText').textContent;
-            const object = document.getElementById('objectText').textContent;
-            const terrain = document.getElementById('terrainText').textContent;
-            const mood = document.getElementById('moodText').textContent;
-            const story = document.getElementById('scenarioText').value;
+    // Get all the required values - using trim() to clean up any extra spaces
+    const arc = document.getElementById('arcText').textContent.trim();
+    const object = document.getElementById('objectText').textContent.trim();
+    const terrain = document.getElementById('terrainText').textContent.trim();
+    const mood = document.getElementById('moodText').textContent.trim();
+    const story = document.getElementById('scenarioText').value.trim();
 
-            // Validate inputs
-            if (!story.trim()) {
-                alert('Please write your scenario before submitting.');
-                return;
-            }
+    // Validate inputs
+    if (!story) {
+        alert('Please write your scenario before submitting.');
+        return;
+    }
 
-            // Construct the Google Form URL with parameters
-            const baseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSd2qY81I7zDt0_FFkRBaCaaiQi7jTpRoM3rUtoje4mREIbUlA/viewform';
-            const params = new URLSearchParams({
-                'entry.1608369691': arc,
-                'entry.238483674': object,
-                'entry.1729568465': terrain,
-                'entry.1094394158': mood,
-                'entry.771338595': story
-                // Email and occupation fields removed as per previous instructions
-            });
+    // Construct the Tally Form URL with parameters
+    const baseURL = 'https://tally.so/r/3jk5vY';
+    
+    // Using URLSearchParams but NOT encoding the values
+    const params = new URLSearchParams();
+    params.set('arc', arc);
+    params.set('object', object);
+    params.set('terrain', terrain);
+    params.set('mood', mood);
+    params.set('story', story);
 
-            // Open the form in a new tab
-            window.open(`${baseURL}?${params.toString()}`, '_blank');
-        }
+    // Open the form in a new tab, using the raw string
+    window.open(`${baseURL}?${params.toString()}`, '_blank');
+}
 
         function copyScenario() {
             const elements = document.querySelector('.captured-elements').innerText;
