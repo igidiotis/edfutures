@@ -293,16 +293,18 @@
 
         function generateCards() {
             const cards = ['arc', 'object', 'terrain', 'mood'];
-            cards.forEach(id => {
+            cards.forEach((id, index) => {
                 const card = document.getElementById(id);
                 card.classList.remove('flipped');
                 setTimeout(() => {
                     document.getElementById(`${id}Text`).textContent = getRandomItem(window[id + 's']);
                     card.classList.add('flipped');
-                }, 100);
+                    if (index === cards.length - 1) { // After last card flips
+                        updateCapturedElements();
+                        document.getElementById('writingArea').classList.add('active');
+                    }
+                }, index * 200); // Staggered animation
             });
-            document.getElementById('writingArea').classList.add('active');
-            document.getElementById('capturedElements').innerHTML = '';
             document.getElementById('storyInput').value = '';
             document.getElementById('previewBox').classList.remove('active');
         }
@@ -343,7 +345,6 @@
             params.set('mood', mood);
             params.set('story', story);
             window.open(`https://tally.so/r/3jk5vY?${params.toString()}`, '_blank');
-            document.querySelector('.submit-btn')?.classList.add('submitted');
         }
 
         function copyStory() {
