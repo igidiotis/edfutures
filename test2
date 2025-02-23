@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Education Futures 2045 - Iosif Gidiotis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #00d4ff;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+        }
+        .header p {
+            font-size: 1.1em;
+            color: #b0bec5;
+        }
+        .card-deck {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .card {
+            width: 180px;
+            min-height: 220px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.5s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        .card.flipped {
+            transform: rotateY(360deg);
+        }
+        .card h2 {
+            color: #00d4ff;
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        .card p {
+            color: #e0e0e0;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .writing-area {
+            flex: 2;
+            min-width: 300px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid #00d4ff;
+            display: none;
+        }
+        .writing-area.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        .writing-area h3 {
+            color: #00d4ff;
+            margin-top: 0;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+        }
+        .captured-elements {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #b0bec5;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #00d4ff;
+            border-radius: 5px;
+            color: #e0e0e0;
+            resize: vertical;
+            font-size: 1em;
+            outline: none;
+        }
+        textarea:focus {
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        .preview-box {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            color: #b0bec5;
+            font-size: 0.9em;
+            display: none;
+        }
+        .preview-box.active {
+            display: block;
+        }
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #00d4ff;
+            color: #fff;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        button:hover {
+            background: #00b0cc;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        .tips-panel {
+            position: fixed;
+            top: 20px;
+            right: -300px;
+            width: 280px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px 0 0 10px;
+            border: 1px solid #00d4ff;
+            color: #e0e0e0;
+            transition: right 0.3s;
+            z-index: 10;
+        }
+        .tips-panel.open {
+            right: 0;
+        }
+        .tips-panel h3 {
+            color: #00d4ff;
+            margin-top: 0;
+        }
+        .tips-panel ul {
+            padding-left: 20px;
+            font-size: 0.9em;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #00d4ff;
+            color: #b0bec5;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Education Futures 2045</h1>
+        <p>Imagine the future of learning—generate a scenario and tell your story.</p>
+    </div>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card" id="arc">
+                <h2>Arc</h2>
+                <p id="arcText">Click 'Generate' to begin</p>
+            </div>
+            <div class="card" id="object">
+                <h2>Object</h2>
+                <p id="objectText">Click 'Generate' to begin</p>
+            </div>
+            <div class="card" id="terrain">
+                <h2>Terrain</h2>
+                <p id="terrainText">Click 'Generate' to begin</p>
+            </div>
+            <div class="card" id="mood">
+                <h2>Mood</h2>
+                <p id="moodText">Click 'Generate' to begin</p>
+            </div>
+        </div>
+        <div class="writing-area" id="writingArea">
+            <h3>Your 2045 Scenario</h3>
+            <div class="captured-elements" id="capturedElements"></div>
+            <textarea id="storyInput" placeholder="Write your story here..."></textarea>
+            <div class="preview-box" id="previewBox">
+                <strong>Preview:</strong><br><span id="previewText"></span>
+            </div>
+            <div class="button-group">
+                <button onclick="submitStory()">Submit</button>
+                <button onclick="copyStory()">Copy</button>
+            </div>
+        </div>
+    </div>
+    <div class="button-group" style="margin: 20px auto; max-width: 1200px;">
+        <button onclick="generateCards()">Generate</button>
+        <button onclick="toggleTips()">Writing Tips</button>
+    </div>
+    <div class="tips-panel" id="tipsPanel">
+        <h3>Writing Tips</h3>
+        <ul>
+            <li><strong>Set the Scene:</strong> Describe the future world of 2045.</li>
+            <li><strong>Use the Object:</strong> Show how it shapes learning.</li>
+            <li><strong>Reflect the Terrain:</strong> Tie in the context.</li>
+            <li><strong>Capture the Mood:</strong> Convey the emotions.</li>
+            <li><strong>Add a Character:</strong> Bring the story to life.</li>
+        </ul>
+        <button onclick="toggleTips()" style="background: #f44336;">Close</button>
+    </div>
+    <div class="footer">
+        <p>Created by <a href="https://www.kth.se/profile/gidiotis" target="_blank">Iosif Gidiotis</a> | <a href="#" onclick="alert('By submitting, you consent to your story being used anonymously for research on AI in education. Contact gidiotis@kth.se to withdraw.')">Research Consent</a></p>
+        <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> | Inspired by <a href="https://library.teachthefuture.org/wp-content/uploads/2017/01/The-Thing-From-The-Future.pdf" target="_blank">The Thing from the Future</a></p>
+    </div>
+
+    <script>
+        const arcs = [
+            "In a future where AI tutors enhance 80% of human teaching",
+            "In a future where brain-computer interfaces accelerate learning",
+            "In a future where education is free and universal",
+            "In a future where tech failures disrupt digital learning",
+            "In a future where skills are traded like currencies"
+        ];
+        const objects = [
+            "there exists an AI that reads emotions",
+            "there exists a neural headband for instant skills",
+            "there exists a VR system recreating history",
+            "there exists a hologram teacher for every student",
+            "there exists an algorithm predicting learning paths"
+        ];
+        const terrains = [
+            "in a context where every space is a classroom",
+            "in a context where DNA shapes education",
+            "in a context where cities are learning hubs",
+            "in a context where AI tutors are omnipresent",
+            "in a context where mistakes earn rewards"
+        ];
+        const moods = [
+            "with wonder and awe",
+            "with cautious optimism",
+            "with playful curiosity",
+            "with quiet resilience",
+            "with bold creativity"
+        ];
+
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        function generateCards() {
+            const cards = ['arc', 'object', 'terrain', 'mood'];
+            cards.forEach(id => {
+                const card = document.getElementById(id);
+                card.classList.remove('flipped');
+                setTimeout(() => {
+                    document.getElementById(`${id}Text`).textContent = getRandomItem(window[id + 's']);
+                    card.classList.add('flipped');
+                }, 100);
+            });
+            document.getElementById('writingArea').classList.add('active');
+            document.getElementById('capturedElements').innerHTML = '';
+            document.getElementById('storyInput').value = '';
+            document.getElementById('previewBox').classList.remove('active');
+        }
+
+        function updateCapturedElements() {
+            const arc = document.getElementById('arcText').textContent;
+            const object = document.getElementById('objectText').textContent;
+            const terrain = document.getElementById('terrainText').textContent;
+            const mood = document.getElementById('moodText').textContent;
+            document.getElementById('capturedElements').innerHTML = `
+                ARC: ${arc}<br>
+                OBJECT: ${object}<br>
+                TERRAIN: ${terrain}<br>
+                MOOD: ${mood}
+            `;
+        }
+
+        function toggleTips() {
+            const panel = document.getElementById('tipsPanel');
+            panel.classList.toggle('open');
+        }
+
+        function submitStory() {
+            const story = document.getElementById('storyInput').value.trim();
+            if (!story) {
+                alert('Please write your story before submitting!');
+                return;
+            }
+            updateCapturedElements();
+            const arc = document.getElementById('arcText').textContent;
+            const object = document.getElementById('objectText').textContent;
+            const terrain = document.getElementById('terrainText').textContent;
+            const mood = document.getElementById('moodText').textContent;
+            const params = new URLSearchParams();
+            params.set('arc', arc);
+            params.set('object', object);
+            params.set('terrain', terrain);
+            params.set('mood', mood);
+            params.set('story', story);
+            window.open(`https://tally.so/r/3jk5vY?${params.toString()}`, '_blank');
+            document.querySelector('.submit-btn')?.classList.add('submitted');
+        }
+
+        function copyStory() {
+            updateCapturedElements();
+            const elements = document.getElementById('capturedElements').innerText;
+            const story = document.getElementById('storyInput').value;
+            const fullText = `Education Futures 2045\n\n${elements}\n\nStory:\n${story}`;
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert('Story copied to clipboard!');
+            });
+        }
+
+        document.getElementById('storyInput').addEventListener('input', () => {
+            const previewBox = document.getElementById('previewBox');
+            const previewText = document.getElementById('previewText');
+            updateCapturedElements();
+            const elements = document.getElementById('capturedElements').innerText;
+            const story = document.getElementById('storyInput').value;
+            previewText.innerText = `${elements}\n\n${story}`;
+            previewBox.classList.add('active');
+        });
+    </script>
+</body>
+</html>
