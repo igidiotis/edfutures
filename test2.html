@@ -292,19 +292,22 @@
         }
 
         function generateCards() {
+            // Update card text and flip them
             const cards = ['arc', 'object', 'terrain', 'mood'];
-            cards.forEach((id, index) => {
+            cards.forEach(id => {
                 const card = document.getElementById(id);
                 card.classList.remove('flipped');
-                setTimeout(() => {
-                    document.getElementById(`${id}Text`).textContent = getRandomItem(window[id + 's']);
-                    card.classList.add('flipped');
-                    if (index === cards.length - 1) { // After last card flips
-                        updateCapturedElements();
-                        document.getElementById('writingArea').classList.add('active');
-                    }
-                }, index * 200); // Staggered animation
+                const newText = getRandomItem(window[id + 's']);
+                document.getElementById(`${id}Text`).textContent = newText;
+                card.classList.add('flipped');
             });
+
+            // Update captured elements and show writing area
+            updateCapturedElements();
+            const writingArea = document.getElementById('writingArea');
+            writingArea.classList.add('active');
+            
+            // Reset story input and preview
             document.getElementById('storyInput').value = '';
             document.getElementById('previewBox').classList.remove('active');
         }
