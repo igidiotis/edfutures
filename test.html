@@ -10,6 +10,9 @@
             margin: 0;
             padding: 20px;
         }
+        body.modal-open {
+            overflow: hidden; /* Prevent background scrolling when modal is open */
+        }
         .consent-dropdown {
             position: relative;
             display: inline-block;
@@ -56,7 +59,7 @@
         /* Card styling */
         .card {
             width: 180px;
-            min-height: 220px; /* Changed to min-height for flexibility */
+            min-height: 220px;
             margin: 8px;
             padding: 15px;
             border-radius: 12px;
@@ -64,8 +67,8 @@
             text-align: center;
             vertical-align: top;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden; /* Prevent overflow */
-            word-wrap: break-word; /* Break long words */
+            overflow: hidden;
+            word-wrap: break-word;
         }
         .card p {
             font-size: 14px;
@@ -157,7 +160,7 @@
         }
         .writing-space textarea {
             width: 100%;
-            min-height: 150px; /* Smaller starting point */
+            min-height: 150px;
             padding: 15px;
             margin: 10px 0;
             border: 1px solid #ddd;
@@ -165,7 +168,7 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             resize: vertical;
-            overflow: hidden; /* Hide scrollbar */
+            overflow: hidden;
         }
         .user-info {
             margin: 20px 0;
@@ -344,6 +347,7 @@
             justify-content: center;
             align-items: center;
             display: none;
+            z-index: 1000; /* Ensure it’s above other content */
         }
         .modal-content {
             background-color: #fff;
@@ -597,12 +601,14 @@
             const modal = document.getElementById('helpModal');
             modal.classList.remove('show');
             modal.style.display = 'none';
+            document.body.classList.remove('modal-open'); // Re-enable scrolling
         }
 
         function openHelpModal() {
             const modal = document.getElementById('helpModal');
             modal.style.display = 'flex';
             modal.classList.add('show');
+            document.body.classList.add('modal-open'); // Disable background scrolling
         }
 
         function submitToForm() {
@@ -626,11 +632,11 @@
 
             const baseURL = 'https://tally.so/r/3jk5vY';
             const params = new URLSearchParams();
-            params.set('arc', encodeURIComponent(arc));
-            params.set('object', encodeURIComponent(object));
-            params.set('terrain', encodeURIComponent(terrain));
-            params.set('mood', encodeURIComponent(mood));
-            params.set('story', encodeURIComponent(story));
+            params.set('arc', arc); // Removed encodeURIComponent
+            params.set('object', object);
+            params.set('terrain', terrain);
+            params.set('mood', mood);
+            params.set('story', story);
 
             window.open(`${baseURL}?${params.toString()}`, '_blank');
         }
