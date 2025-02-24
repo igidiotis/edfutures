@@ -392,26 +392,33 @@
         const getRandomItem = (array) => array[Math.floor(Math.random() * array.length)];
 
         // Generate new cards with animation
-        function dealCards() {
-            const cards = ['arc', 'object', 'terrain', 'mood'];
-            cards.forEach(card => {
-                const element = document.getElementById(`${card}Text`);
-                element.textContent = getRandomItem(window[`${card}s`]);
-                const cardDiv = document.getElementById(card);
-                cardDiv.classList.remove('animate-fade-in');
-                void cardDiv.offsetWidth; // Trigger reflow
-                cardDiv.classList.add('animate-fade-in');
-            });
+function dealCards() {
+    const cards = ['arc', 'object', 'terrain', 'mood'];
+    const arrays = {
+        arc: arcs,
+        object: objects,
+        terrain: terrains,
+        mood: moods
+    };
+    
+    cards.forEach(card => {
+        const element = document.getElementById(`${card}Text`);
+        element.textContent = getRandomItem(arrays[card]);
+        const cardDiv = document.getElementById(card);
+        cardDiv.classList.remove('animate-fade-in');
+        void cardDiv.offsetWidth; // Trigger reflow
+        cardDiv.classList.add('animate-fade-in');
+    });
 
-            // Disable writing space
-            const writingSpace = document.getElementById('writingSpace');
-            writingSpace.classList.add('opacity-50', 'pointer-events-none');
-            writingSpace.querySelector('textarea').disabled = true;
-            document.querySelector('.captured-elements').innerHTML = '';
-            document.getElementById('scenarioText').value = '';
-            document.getElementById('suggestionText').classList.add('hidden');
-            updateCounts();
-        }
+    // Disable writing space
+    const writingSpace = document.getElementById('writingSpace');
+    writingSpace.classList.add('opacity-50', 'pointer-events-none');
+    writingSpace.querySelector('textarea').disabled = true;
+    document.querySelector('.captured-elements').innerHTML = '';
+    document.getElementById('scenarioText').value = '';
+    document.getElementById('suggestionText').classList.add('hidden');
+    updateCounts();
+}
 
         // Capture scenario and enable writing space
         function captureScenario() {
