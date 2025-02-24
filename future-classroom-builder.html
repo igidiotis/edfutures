@@ -227,6 +227,16 @@
             const regenerateBtn = document.getElementById('regenerateBtn');
             const fullGeneratorBtn = document.getElementById('fullGeneratorBtn');
             
+            // Set up link to main project
+            document.getElementById('mainProjectLink').addEventListener('click', function(e) {
+                window.open('https://igidiotis.github.io/edfutures/index.html', '_blank');
+            });
+            
+            // Set up link to full generator
+            fullGeneratorBtn.addEventListener('click', function() {
+                window.open('https://igidiotis.github.io/edfutures/index.html', '_blank');
+            });
+            
             // Set up drag events for draggable items
             draggables.forEach(draggable => {
                 draggable.addEventListener('dragstart', function(e) {
@@ -295,11 +305,6 @@
             
             // Regenerate button functionality
             regenerateBtn.addEventListener('click', generateScenario);
-            
-            // Full generator button
-            fullGeneratorBtn.addEventListener('click', function() {
-                alert('This would link to the full Education Futures Generator. In a real implementation, this would redirect to your main project.');
-            });
         });
         
         function placeItem(itemType, x, y) {
