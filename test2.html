@@ -529,13 +529,20 @@ function dealCards() {
         }
 
         // Display writing suggestion
-        function getSuggestion(category) {
-            const suggestions = window[`${category}Suggestions`];
-            const suggestion = getRandomItem(suggestions);
-            const suggestionText = document.getElementById('suggestionText');
-            suggestionText.textContent = `Suggestion for ${category.toUpperCase()}: ${suggestion}`;
-            suggestionText.classList.remove('hidden');
-        }
+function getSuggestion(category) {
+    const suggestionArrays = {
+        arc: arcSuggestions,
+        object: objectSuggestions,
+        terrain: terrainSuggestions,
+        mood: moodSuggestions
+    };
+    
+    const suggestions = suggestionArrays[category];
+    const suggestion = getRandomItem(suggestions);
+    const suggestionText = document.getElementById('suggestionText');
+    suggestionText.textContent = `Suggestion for ${category.toUpperCase()}: ${suggestion}`;
+    suggestionText.classList.remove('hidden');
+}
 
         // Clear suggestion
         function clearSuggestion() {
