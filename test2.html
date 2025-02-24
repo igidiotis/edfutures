@@ -2,372 +2,645 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Education Futures 2045 - Iosif Gidiotis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Futures Generator - Iosif Gidiotis</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS for additional styles -->
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #e0e0e0;
-            overflow-x: hidden;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .header {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-bottom: 2px solid #00d4ff;
-            margin-bottom: 20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            color: #00d4ff;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
-        }
-        .header p {
-            font-size: 1.1em;
-            color: #b0bec5;
-        }
-        .card-deck {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-        .card {
-            width: 180px;
-            min-height: 220px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid #00d4ff;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.5s, box-shadow 0.3s;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-        }
-        .card.flipped {
-            transform: rotateY(360deg);
-        }
-        .card h2 {
-            color: #00d4ff;
-            font-size: 1.2em;
-            margin: 10px 0;
-            text-transform: uppercase;
-        }
-        .card p {
-            color: #e0e0e0;
-            font-size: 0.9em;
-            line-height: 1.4;
-        }
-        .writing-area {
-            flex: 2;
-            min-width: 300px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border: 1px solid #00d4ff;
-            display: none;
-        }
-        .writing-area.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        .writing-area h3 {
-            color: #00d4ff;
-            margin-top: 0;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-        }
-        .captured-elements {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-            color: #b0bec5;
-        }
-        textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid #00d4ff;
-            border-radius: 5px;
-            color: #e0e0e0;
-            resize: vertical;
-            font-size: 1em;
-            outline: none;
-        }
-        textarea:focus {
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-        .preview-box {
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 5px;
-            color: #b0bec5;
-            font-size: 0.9em;
-            display: none;
-        }
-        .preview-box.active {
-            display: block;
-        }
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        button {
-            padding: 12px 24px;
-            font-size: 1em;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            background: #00d4ff;
-            color: #fff;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-        button:hover {
-            background: #00b0cc;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
-        }
-        button:active {
-            transform: scale(0.95);
-        }
-        .tips-panel {
-            position: fixed;
-            top: 20px;
-            right: -300px;
-            width: 280px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px 0 0 10px;
-            border: 1px solid #00d4ff;
-            color: #e0e0e0;
-            transition: right 0.3s;
-            z-index: 10;
-        }
-        .tips-panel.open {
-            right: 0;
-        }
-        .tips-panel h3 {
-            color: #00d4ff;
-            margin-top: 0;
-        }
-        .tips-panel ul {
-            padding-left: 20px;
-            font-size: 0.9em;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            border-top: 1px solid #00d4ff;
-            color: #b0bec5;
-            font-size: 0.9em;
-            margin-top: 40px;
-        }
-        .footer a {
-            color: #00d4ff;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        /* Custom animations */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        /* Modal backdrop */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        .modal-backdrop.show {
+            display: block;
+        }
+
+        /* Hide scrollbars but allow scrolling */
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+        .modal-content {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Card gradients */
+        .arc-card {
+            background: linear-gradient(45deg, #90EE90, #98FB98);
+        }
+        .object-card {
+            background: linear-gradient(45deg, #87CEEB, #B0E0E6);
+        }
+        .terrain-card {
+            background: linear-gradient(45deg, #FFB6C1, #FFA07A);
+        }
+        .mood-card {
+            background: linear-gradient(45deg, #DDA0DD, #EE82EE);
+        }
+
+        /* Consent dropdown */
+        .consent-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 300px;
+            max-width: 600px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 10;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .consent-dropdown:hover .consent-content {
+            display: block;
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>Education Futures 2045</h1>
-        <p>Imagine the future of learning—generate a scenario and tell your story.</p>
-    </div>
-    <div class="container">
-        <div class="card-deck">
-            <div class="card" id="arc">
-                <h2>Arc</h2>
-                <p id="arcText">Click 'Generate' to begin</p>
-            </div>
-            <div class="card" id="object">
-                <h2>Object</h2>
-                <p id="objectText">Click 'Generate' to begin</p>
-            </div>
-            <div class="card" id="terrain">
-                <h2>Terrain</h2>
-                <p id="terrainText">Click 'Generate' to begin</p>
-            </div>
-            <div class="card" id="mood">
-                <h2>Mood</h2>
-                <p id="moodText">Click 'Generate' to begin</p>
+<body class="bg-gray-100 font-sans antialiased">
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-bold text-gray-800">Education Futures Generator</h1>
+            <p class="mt-2 text-gray-600 max-w-2xl mx-auto">
+                This generator is based on 'The Thing From the Future', an imagination game meant to spur creative and critical thinking.
+                If you run into any problems, <a href="mailto:gidiotis@kth.se" target="_blank" class="text-green-600 hover:underline">let me know</a>.
+            </p>
+        </div>
+
+        <!-- Consent Dropdown -->
+        <div class="consent-dropdown mb-8 text-center">
+            <button class="consent-button bg-gray-100 border border-gray-300 py-2 px-4 rounded-lg text-sm hover:bg-gray-200">
+                Research Participation Information ▼
+            </button>
+            <div class="consent-content text-left">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                    Consent to Participate in Research; read more <a href="https://igidiotis.github.io/edfutures/research-consent.html" target="_blank" class="text-green-600 hover:underline">here</a>
+                </h3>
+                <p><strong>Purpose:</strong> You are invited to share a short speculative story based on four randomly generated elements. This research explores how educators and stakeholders imagine AI’s socio-technical impact on future learning.</p>
+                <p><strong>What You Will Do:</strong> You will receive four elements and submit your brief story through a form embedded in the creation tool below.</p>
+                <p><strong>Data Usage & Privacy:</strong></p>
+                <ul class="list-disc pl-5">
+                    <li>Your story is used for research only.</li>
+                    <li>We collect no personal identifiers unless you voluntarily provide contact details for further participation.</li>
+                    <li>Stories are anonymous; your email is optional and used only if you wish to be further contacted.</li>
+                    <li>Quotes may appear in publications and presentations, without identifying information.</li>
+                </ul>
+                <p><strong>Voluntary Participation:</strong> You can stop your participation at any time.</p>
+                <p><strong>Withdrawal Rights:</strong> To remove your story, email <a href="mailto:gidiotis@kth.se" class="text-green-600 hover:underline">gidiotis@kth.se</a> with its submission timestamp.</p>
+                <p><strong>Data Storage:</strong> Your story will be stored securely and viewed only by the research team.</p>
+                <p><strong>Questions:</strong> Contact <a href="mailto:gidiotis@kth.se" class="text-green-600 hover:underline">gidiotis@kth.se</a> for more information.</p>
+                <p class="italic">By submitting a story, you confirm you have read this information and consent to participate under these terms.</p>
             </div>
         </div>
-        <div class="writing-area" id="writingArea">
-            <h3>Your 2045 Scenario</h3>
-            <div class="captured-elements" id="capturedElements"></div>
-            <textarea id="storyInput" placeholder="Write your story here..."></textarea>
-            <div class="preview-box" id="previewBox">
-                <strong>Preview:</strong><br><span id="previewText"></span>
+
+        <!-- Instructions -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Instructions</h2>
+            <p class="text-gray-600">
+                To use this generator, click 'Generate Scenario' below to get a different aspect for each of the four cards. 
+                <strong>Using these aspects, imagine and build a story that takes place in the year 2045.</strong>
+                You can save your scenarios, load previous ones, and get writing suggestions to assist you.
+            </p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" role="region" aria-label="Scenario cards">
+            <div id="arc" class="card arc-card rounded-xl shadow-lg p-6 text-center transition-transform hover:scale-105" role="article" aria-labelledby="arc-heading">
+                <h2 id="arc-heading" class="text-xl font-semibold text-gray-800 mb-2">ARC</h2>
+                <p id="arcText" class="text-gray-700">Click 'Generate Scenario' to start</p>
             </div>
-            <div class="button-group">
-                <button onclick="submitStory()">Submit</button>
-                <button onclick="copyStory()">Copy</button>
+            <div id="object" class="card object-card rounded-xl shadow-lg p-6 text-center transition-transform hover:scale-105" role="article" aria-labelledby="object-heading">
+                <h2 id="object-heading" class="text-xl font-semibold text-gray-800 mb-2">OBJECT</h2>
+                <p id="objectText" class="text-gray-700">Click 'Generate Scenario' to start</p>
+            </div>
+            <div id="terrain" class="card terrain-card rounded-xl shadow-lg p-6 text-center transition-transform hover:scale-105" role="article" aria-labelledby="terrain-heading">
+                <h2 id="terrain-heading" class="text-xl font-semibold text-gray-800 mb-2">TERRAIN</h2>
+                <p id="terrainText" class="text-gray-700">Click 'Generate Scenario' to start</p>
+            </div>
+            <div id="mood" class="card mood-card rounded-xl shadow-lg p-6 text-center transition-transform hover:scale-105" role="article" aria-labelledby="mood-heading">
+                <h2 id="mood-heading" class="text-xl font-semibold text-gray-800 mb-2">MOOD</h2>
+                <p id="moodText" class="text-gray-700">Click 'Generate Scenario' to start</p>
             </div>
         </div>
-    </div>
-    <div class="button-group" style="margin: 20px auto; max-width: 1200px;">
-        <button onclick="generateCards()">Generate</button>
-        <button onclick="toggleTips()">Writing Tips</button>
-    </div>
-    <div class="tips-panel" id="tipsPanel">
-        <h3>Writing Tips</h3>
-        <ul>
-            <li><strong>Set the Scene:</strong> Describe the future world of 2045.</li>
-            <li><strong>Use the Object:</strong> Show how it shapes learning.</li>
-            <li><strong>Reflect the Terrain:</strong> Tie in the context.</li>
-            <li><strong>Capture the Mood:</strong> Convey the emotions.</li>
-            <li><strong>Add a Character:</strong> Bring the story to life.</li>
-        </ul>
-        <button onclick="toggleTips()" style="background: #f44336;">Close</button>
-    </div>
-    <div class="footer">
-        <p>Created by <a href="https://www.kth.se/profile/gidiotis" target="_blank">Iosif Gidiotis</a> | <a href="#" onclick="alert('By submitting, you consent to your story being used anonymously for research on AI in education. Contact gidiotis@kth.se to withdraw.')">Research Consent</a></p>
-        <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> | Inspired by <a href="https://library.teachthefuture.org/wp-content/uploads/2017/01/The-Thing-From-The-Future.pdf" target="_blank">The Thing from the Future</a></p>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button class="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors" onclick="dealCards()" aria-label="Generate a new scenario">
+                Generate Scenario
+            </button>
+            <button class="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors" onclick="captureScenario()" aria-label="Capture current scenario and start writing">
+                Capture & Write
+            </button>
+            <button class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors" onclick="saveScenario()" aria-label="Save current scenario">
+                Save Scenario
+            </button>
+            <button class="bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors" onclick="loadScenarios()" aria-label="Load saved scenarios">
+                Load Scenario
+            </button>
+        </div>
+
+        <!-- Example Section -->
+        <div class="bg-white rounded-lg shadow-md mb-8">
+            <button class="w-full flex justify-between items-center p-4 bg-green-50 hover:bg-green-100 rounded-t-lg focus:outline-none focus:ring-2 focus:ring-green-600" onclick="toggleExample()" aria-expanded="false" aria-controls="exampleContent">
+                <span class="font-semibold text-green-800">See an Example: How to Build Your Story</span>
+                <span class="toggle-icon text-green-800">▼</span>
+            </button>
+            <div id="exampleContent" class="p-6 hidden" aria-hidden="true">
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">Sample Cards:</h4>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><strong>ARC:</strong> In a future where learning is entirely experiential</li>
+                        <li><strong>OBJECT:</strong> there exists a virtual reality field trip platform</li>
+                        <li><strong>TERRAIN:</strong> in a context where every space is a potential classroom</li>
+                        <li><strong>MOOD:</strong> with optimistic curiosity</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Story:</h4>
+                    <p class="text-gray-700">
+                        Sarah sits on her couch at home, ready to start today's history lesson. With a simple voice command, she activates the neighborhood's VR field trip platform. In an instant, her living room transforms into an ancient marketplace, complete with the sounds and smells of a bygone era.
+                    </p>
+                    <p class="text-gray-700">
+                        Her students join in from their own homes - some from nearby apartments, others from different cities. Together, they explore the marketplace, learning about trade and daily life through hands-on experiences. The children's eyes light up as they discover they can pick up and examine virtual artifacts, each object telling its own story.
+                    </p>
+                    <p class="text-gray-700">
+                        One student gets particularly excited when she finds she can actually try bartering with the market's AI merchants, putting her newly learned historical knowledge to immediate use. The lesson feels more like an adventure than traditional studying.
+                    </p>
+                    <p class="text-gray-700">
+                        Sarah smiles, watching her students explore and learn naturally in this virtual space. Who would have thought that a simple living room could become such an engaging classroom?
+                    </p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2">How This Story Connects the Elements:</h4>
+                    <ul class="list-none text-gray-700">
+                        <li class="relative pl-6"><span class="absolute left-0 text-green-600">✓</span><strong>Experiential Learning (ARC):</strong> Students learn history by actually experiencing and interacting with it</li>
+                        <li class="relative pl-6"><span class="absolute left-0 text-green-600">✓</span><strong>VR Platform (OBJECT):</strong> The virtual reality system turns regular spaces into historical environments</li>
+                        <li class="relative pl-6"><span class="absolute left-0 text-green-600">✓</span><strong>Every Space a Classroom (TERRAIN):</strong> Shows how homes become effective learning spaces</li>
+                        <li class="relative pl-6"><span class="absolute left-0 text-green-600">✓</span><strong>Optimistic Curiosity (MOOD):</strong> Reflected in the students' excitement and teacher's satisfaction with the learning experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Writing Space -->
+        <div id="writingSpace" class="bg-white rounded-lg shadow-md p-6 mb-8 opacity-50 pointer-events-none" role="region" aria-label="Scenario development area">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Develop Your Scenario</h3>
+                <button class="bg-gray-600 text-white py-1 px-3 rounded-lg hover:bg-gray-700 transition-colors" onclick="openHelpModal()" aria-label="Open writing help modal">?</button>
+            </div>
+            <div class="captured-elements bg-gray-100 p-4 rounded-lg mb-4 text-gray-700" aria-live="polite"></div>
+            <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2">Write your story below:</h4>
+                <textarea id="scenarioText" class="w-full min-h-[300px] p-4 border border-gray-300 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-green-600" placeholder="Start developing your scenario here..." disabled aria-label="Story text area"></textarea>
+                <div class="mt-2 flex justify-between text-sm text-gray-600">
+                    <span id="charCount">Characters: 0 / 5000</span>
+                    <span id="wordCount">Words: 0</span>
+                </div>
+            </div>
+            <!-- Suggestion Buttons -->
+            <div class="flex flex-wrap gap-2 mb-4">
+                <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors" onclick="getSuggestion('arc')" aria-label="Get suggestion for ARC">ARC Help</button>
+                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors" onclick="getSuggestion('object')" aria-label="Get suggestion for OBJECT">OBJECT Help</button>
+                <button class="bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 transition-colors" onclick="getSuggestion('terrain')" aria-label="Get suggestion for TERRAIN">TERRAIN Help</button>
+                <button class="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors" onclick="getSuggestion('mood')" aria-label="Get suggestion for MOOD">MOOD Help</button>
+                <button class="bg-gray-400 text-white py-2 px-4 rounded-lg hover:bg-gray-500 transition-colors" onclick="clearSuggestion()" aria-label="Clear current suggestion">Clear Suggestion</button>
+            </div>
+            <div id="suggestionText" class="bg-blue-50 p-4 rounded-lg text-gray-700 hidden" aria-live="polite"></div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors" onclick="submitToForm()" aria-label="Submit scenario to form">Submit to Form</button>
+                <button class="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors" onclick="copyScenario()" aria-label="Copy scenario to clipboard">Copy to Clipboard</button>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal-backdrop" role="dialog" aria-labelledby="helpModalTitle" aria-modal="true">
+            <div class="modal-content bg-white rounded-lg p-6 max-w-lg mx-auto mt-20 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="helpModalTitle" class="text-xl font-semibold text-gray-800">Writing Tips for Your Future Scenario</h3>
+                    <button class="text-gray-600 hover:text-gray-800 text-2xl" onclick="closeHelpModal()" aria-label="Close help modal">&times;</button>
+                </div>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><strong>Set the Scene:</strong> Begin by describing how this future looks and feels. What's different from today? What's familiar?</li>
+                    <li><strong>Focus on the Object:</strong> Explain how people interact with the mentioned object. What problems does it solve? What new challenges might it create?</li>
+                    <li><strong>Consider the Context:</strong> Think about how the TERRAIN affects the story. How does the specified context influence people's behaviors and interactions?</li>
+                    <li><strong>Capture the Mood:</strong> Reflect the emotional atmosphere in your writing. How do people feel about living in this future?</li>
+                    <li><strong>Include Characters:</strong> Consider introducing a character experiencing this future. What's their perspective on these changes?</li>
+                    <li><strong>Educational Impact:</strong> Think about how learning and teaching have evolved. What new possibilities or challenges exist?</li>
+                    <li><strong>Show, Don't Tell:</strong> Instead of just stating facts, create vivid descriptions and specific examples of how this future works.</li>
+                    <li><strong>Consider Consequences:</strong> What are the broader implications of this future for society, culture, and human relationships?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Load Scenarios Modal -->
+        <div id="loadModal" class="modal-backdrop" role="dialog" aria-labelledby="loadModalTitle" aria-modal="true">
+            <div class="modal-content bg-white rounded-lg p-6 max-w-lg mx-auto mt-20 max-h-[80vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="loadModalTitle" class="text-xl font-semibold text-gray-800">Saved Scenarios</h3>
+                    <button class="text-gray-600 hover:text-gray-800 text-2xl" onclick="closeLoadModal()" aria-label="Close load scenarios modal">&times;</button>
+                </div>
+                <div id="scenarioList" class="text-gray-700">
+                    <p>No saved scenarios found.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Explanation -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">About the Card Decks</h3>
+            <ul class="list-none text-gray-700">
+                <li class="relative pl-6 mb-3"><span class="absolute left-0 text-green-600">•</span><strong>ARC</strong> describes the type of future world where the "thing" (or Object) is to be found. In the original game, this category defines if the future world is one of progress or development, or one of destruction and collapse.</li>
+                <li class="relative pl-6 mb-3"><span class="absolute left-0 text-green-600">•</span><strong>OBJECT</strong> is the focus of the future speculation: a specific "thing" that shows how the future world of the story is different than today.</li>
+                <li class="relative pl-6 mb-3"><span class="absolute left-0 text-green-600">•</span><strong>TERRAIN</strong> describes more concretely the context or location in which the Object is activated.</li>
+                <li class="relative pl-6 mb-3"><span class="absolute left-0 text-green-600">•</span><strong>MOOD</strong> establishes the emotions evoked in the present observer of the future object; in other words, it shows how you (as the author of the story) feel about the future brought by the other three elements.</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center border-t border-gray-300 pt-6 mt-8">
+            <p class="text-gray-600">
+                Created by <a href="https://www.kth.se/profile/gidiotis" target="_blank" class="text-green-600 hover:underline">Iosif Gidiotis</a>
+            </p>
+            <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" class="text-green-600 hover:underline">CC BY-NC-SA 4.0</a></p>
+            <p>Idea based on <a href="https://library.teachthefuture.org/wp-content/uploads/2017/01/The-Thing-From-The-Future.pdf" target="_blank" class="text-green-600 hover:underline">'The Thing from the Future' by Situation Lab</a></p>
+            <p>Card generator inspired by the <a href="https://ncsu-libraries.github.io/the-thing-from-the-future/" target="_blank" class="text-green-600 hover:underline">Innovation Studio at NC State University Libraries</a></p>
+        </footer>
     </div>
 
     <script>
+        // Card aspect arrays (same as original)
         const arcs = [
+            // Growth Scenarios
             "In a future where AI tutors enhance 80% of human teaching",
+            "In a future where global learning networks connect every village",
             "In a future where brain-computer interfaces accelerate learning",
-            "In a future where education is free and universal",
-            "In a future where tech failures disrupt digital learning",
-            "In a future where skills are traded like currencies"
+            "In a future where education is free and universally accessible",
+            "In a future where lifelong learning is the educational standard",
+            // Collapse Scenarios
+            "In a future where tech failures have disrupted digital education",
+            "In a future where learning gaps have created knowledge tribes",
+            "In a future where attention disorders affect 70% of students",
+            "In a future where schools struggle with constant power outages",
+            "In a future where education access depends on data wealth",
+            // Transformation Scenarios
+            "In a future where learning happens through shared dreaming",
+            "In a future where education adapts to planetary migration",
+            "In a future where skills are traded like currencies",
+            "In a future where learning is embedded in daily survival",
+            "In a future where human and AI consciousness co-evolve"
         ];
         const objects = [
-            "there exists an AI that reads emotions",
-            "there exists a neural headband for instant skills",
-            "there exists a VR system recreating history",
-            "there exists a hologram teacher for every student",
-            "there exists an algorithm predicting learning paths"
+            "there exists an AI that reads facial expressions",
+            "there exists a neural headband that transfers language skills in hours",
+            "there exists a hologram teacher who can split into 30 versions of itself",
+            "there exists an algorithm that predicts optimal learning pathways",
+            "there exists a VR system that recreates any historical moment",
+            "there exists an AI that provides feedback in a student's learning style",
+            "there exists a network where 10,000 minds solve problems together",
+            "there exists a tool that adjusts content difficulty in real-time",
+            "there exists an AI matchmaker connecting learners across cultures",
+            "there exists a system that identifies knowledge gaps before they form",
+            "there exists an AR classroom that adapts to each student's needs",
+            "there exists a simulator that generates real-world projects",
+            "there exists an AI that matches peer tutors with 99% accuracy",
+            "there exists a device that visualizes thinking patterns"
         ];
         const terrains = [
-            "in a context where every space is a classroom",
-            "in a context where DNA shapes education",
-            "in a context where cities are learning hubs",
-            "in a context where AI tutors are omnipresent",
-            "in a context where mistakes earn rewards"
+            "in a context where DNA analysis predicts optimal learning paths",
+            "in a context where learning groups are formed based on skill level",
+            "in a context where city infrastructure doubles as learning spaces",
+            "in a context where students grade each other using AI frameworks",
+            "in a context where AI tutors provide 24/7 personalized support",
+            "in a context where textbooks update themselves daily",
+            "in a context where neighborhood learning hubs replace schools",
+            "in a context where mistakes earn achievement badges",
+            "in a context where learning happens across physical and digital realms",
+            "in a context where devices reshape to match learning styles",
+            "in a context where social interactions earn learning credits"
         ];
         const moods = [
-            "with wonder and awe",
-            "with cautious optimism",
-            "with playful curiosity",
-            "with quiet resilience",
-            "with bold creativity"
+            // Hopeful moods
+            "with wonder and curiosity",
+            "with collaborative excitement",
+            "with playful confidence",
+            "with quiet determination",
+            "with creative energy",
+            "with gentle optimism",
+            // Balanced moods
+            "with cautious hope",
+            "with reflective patience",
+            "with balanced acceptance",
+            // Concerned moods
+            "with mindful hesitation",
+            "with respectful concern",
+            "with thoughtful resistance"
         ];
 
-        function getRandomItem(array) {
-            return array[Math.floor(Math.random() * array.length)];
-        }
+        // Suggestion arrays for each category
+        const arcSuggestions = [
+            "How does this future change the way people learn?",
+            "What challenges might educators face in this future?",
+            "How could this future impact social equality in education?",
+            "What new opportunities does this future create for students?",
+            "How might this future affect the role of human teachers?"
+        ];
+        const objectSuggestions = [
+            "How do people interact with this object daily?",
+            "What problems does this object solve in education?",
+            "What new challenges might this object introduce?",
+            "How does this object change the learning experience?",
+            "Who benefits most from using this object?"
+        ];
+        const terrainSuggestions = [
+            "How does this context influence student behavior?",
+            "What advantages does this context offer for learning?",
+            "How might this context limit educational access?",
+            "How do people adapt to this context in daily life?",
+            "What technologies are essential in this context?"
+        ];
+        const moodSuggestions = [
+            "How can you reflect this mood in your characters' actions?",
+            "What elements of the scenario contribute to this mood?",
+            "How does this mood affect the perception of the future?",
+            "How might this mood influence educational outcomes?",
+            "What conflicts could arise due to this mood?"
+        ];
 
-        function generateCards() {
-            // Update card text and flip them
+        // Initialize saved scenarios from localStorage
+        let savedScenarios = JSON.parse(localStorage.getItem('savedScenarios')) || [];
+
+        // Helper function to get random item
+        const getRandomItem = (array) => array[Math.floor(Math.random() * array.length)];
+
+        // Generate new cards with animation
+        function dealCards() {
             const cards = ['arc', 'object', 'terrain', 'mood'];
-            cards.forEach(id => {
-                const card = document.getElementById(id);
-                card.classList.remove('flipped');
-                const newText = getRandomItem(window[id + 's']);
-                document.getElementById(`${id}Text`).textContent = newText;
-                card.classList.add('flipped');
+            cards.forEach(card => {
+                const element = document.getElementById(`${card}Text`);
+                element.textContent = getRandomItem(window[`${card}s`]);
+                const cardDiv = document.getElementById(card);
+                cardDiv.classList.remove('animate-fade-in');
+                void cardDiv.offsetWidth; // Trigger reflow
+                cardDiv.classList.add('animate-fade-in');
             });
 
-            // Update captured elements and show writing area
-            updateCapturedElements();
-            const writingArea = document.getElementById('writingArea');
-            writingArea.classList.add('active');
-            
-            // Reset story input and preview
-            document.getElementById('storyInput').value = '';
-            document.getElementById('previewBox').classList.remove('active');
+            // Disable writing space
+            const writingSpace = document.getElementById('writingSpace');
+            writingSpace.classList.add('opacity-50', 'pointer-events-none');
+            writingSpace.querySelector('textarea').disabled = true;
+            document.querySelector('.captured-elements').innerHTML = '';
+            document.getElementById('scenarioText').value = '';
+            document.getElementById('suggestionText').classList.add('hidden');
+            updateCounts();
         }
 
-        function updateCapturedElements() {
+        // Capture scenario and enable writing space
+        function captureScenario() {
             const arc = document.getElementById('arcText').textContent;
             const object = document.getElementById('objectText').textContent;
             const terrain = document.getElementById('terrainText').textContent;
             const mood = document.getElementById('moodText').textContent;
-            document.getElementById('capturedElements').innerHTML = `
+
+            if (arc.includes("Click 'Generate Scenario'")) {
+                alert('Please generate a scenario before capturing.');
+                return;
+            }
+
+            const capturedElements = document.querySelector('.captured-elements');
+            capturedElements.innerHTML = `
+                <strong>Your Scenario Elements:</strong><br>
                 ARC: ${arc}<br>
                 OBJECT: ${object}<br>
                 TERRAIN: ${terrain}<br>
                 MOOD: ${mood}
             `;
+
+            const writingSpace = document.getElementById('writingSpace');
+            writingSpace.classList.remove('opacity-50', 'pointer-events-none');
+            writingSpace.querySelector('textarea').disabled = false;
+            writingSpace.scrollIntoView({ behavior: 'smooth' });
+            updateCounts();
         }
 
-        function toggleTips() {
-            const panel = document.getElementById('tipsPanel');
-            panel.classList.toggle('open');
-        }
-
-        function submitStory() {
-            const story = document.getElementById('storyInput').value.trim();
-            if (!story) {
-                alert('Please write your story before submitting!');
-                return;
-            }
-            updateCapturedElements();
+        // Save current scenario to localStorage
+        function saveScenario() {
             const arc = document.getElementById('arcText').textContent;
             const object = document.getElementById('objectText').textContent;
             const terrain = document.getElementById('terrainText').textContent;
             const mood = document.getElementById('moodText').textContent;
+            const story = document.getElementById('scenarioText').value.trim();
+
+            if (arc.includes("Click 'Generate Scenario'")) {
+                alert('Please generate a scenario before saving.');
+                return;
+            }
+
+            const timestamp = new Date().toLocaleString();
+            savedScenarios.push({
+                timestamp,
+                arc,
+                object,
+                terrain,
+                mood,
+                story
+            });
+            localStorage.setItem('savedScenarios', JSON.stringify(savedScenarios));
+            alert('Scenario saved successfully!');
+        }
+
+        // Load saved scenarios into modal
+        function loadScenarios() {
+            const modal = document.getElementById('loadModal');
+            const scenarioList = document.getElementById('scenarioList');
+            scenarioList.innerHTML = '';
+
+            if (savedScenarios.length === 0) {
+                scenarioList.innerHTML = '<p>No saved scenarios found.</p>';
+            } else {
+                savedScenarios.forEach((scenario, index) => {
+                    const preview = `
+                        <div class="bg-gray-50 p-4 rounded-lg mb-2 cursor-pointer hover:bg-gray-100" onclick="selectScenario(${index})">
+                            <strong>Saved on:</strong> ${scenario.timestamp}<br>
+                            <strong>ARC:</strong> ${scenario.arc}<br>
+                            <strong>Story Preview:</strong> ${scenario.story.substring(0, 50)}${scenario.story.length > 50 ? '...' : ''}
+                        </div>
+                    `;
+                    scenarioList.innerHTML += preview;
+                });
+            }
+            modal.classList.add('show');
+        }
+
+        // Select and load a saved scenario
+        function selectScenario(index) {
+            const scenario = savedScenarios[index];
+            document.getElementById('arcText').textContent = scenario.arc;
+            document.getElementById('objectText').textContent = scenario.object;
+            document.getElementById('terrainText').textContent = scenario.terrain;
+            document.getElementById('moodText').textContent = scenario.mood;
+            document.getElementById('scenarioText').value = scenario.story;
+
+            const capturedElements = document.querySelector('.captured-elements');
+            capturedElements.innerHTML = `
+                <strong>Your Scenario Elements:</strong><br>
+                ARC: ${scenario.arc}<br>
+                OBJECT: ${scenario.object}<br>
+                TERRAIN: ${scenario.terrain}<br>
+                MOOD: ${scenario.mood}
+            `;
+
+            const writingSpace = document.getElementById('writingSpace');
+            writingSpace.classList.remove('opacity-50', 'pointer-events-none');
+            writingSpace.querySelector('textarea').disabled = false;
+            closeLoadModal();
+            updateCounts();
+        }
+
+        // Close load modal
+        function closeLoadModal() {
+            const modal = document.getElementById('loadModal');
+            modal.classList.remove('show');
+        }
+
+        // Display writing suggestion
+        function getSuggestion(category) {
+            const suggestions = window[`${category}Suggestions`];
+            const suggestion = getRandomItem(suggestions);
+            const suggestionText = document.getElementById('suggestionText');
+            suggestionText.textContent = `Suggestion for ${category.toUpperCase()}: ${suggestion}`;
+            suggestionText.classList.remove('hidden');
+        }
+
+        // Clear suggestion
+        function clearSuggestion() {
+            const suggestionText = document.getElementById('suggestionText');
+            suggestionText.classList.add('hidden');
+            suggestionText.textContent = '';
+        }
+
+        // Update character and word counts
+        function updateCounts() {
+            const text = document.getElementById('scenarioText').value;
+            const charCount = text.length;
+            const wordCount = text.trim().split(/\s+/).filter(word => word.length).length || 0;
+            document.getElementById('charCount').textContent = `Characters: ${charCount} / 5000`;
+            document.getElementById('wordCount').textContent = `Words: ${wordCount}`;
+        }
+
+        // Submit to Tally form
+        function submitToForm() {
+            const arc = document.getElementById('arcText').textContent.trim();
+            const object = document.getElementById('objectText').textContent.trim();
+            const terrain = document.getElementById('terrainText').textContent.trim();
+            const mood = document.getElementById('moodText').textContent.trim();
+            const story = document.getElementById('scenarioText').value.trim();
+
+            if (!story) {
+                alert('Please write your scenario before submitting.');
+                return;
+            }
+
+            const baseURL = 'https://tally.so/r/3jk5vY';
             const params = new URLSearchParams();
             params.set('arc', arc);
             params.set('object', object);
             params.set('terrain', terrain);
             params.set('mood', mood);
             params.set('story', story);
-            window.open(`https://tally.so/r/3jk5vY?${params.toString()}`, '_blank');
+
+            window.open(`${baseURL}?${params.toString()}`, '_blank');
         }
 
-        function copyStory() {
-            updateCapturedElements();
-            const elements = document.getElementById('capturedElements').innerText;
-            const story = document.getElementById('storyInput').value;
-            const fullText = `Education Futures 2045\n\n${elements}\n\nStory:\n${story}`;
-            navigator.clipboard.writeText(fullText).then(() => {
-                alert('Story copied to clipboard!');
+        // Copy scenario to clipboard
+        function copyScenario() {
+            const elements = document.querySelector('.captured-elements').innerText;
+            const story = document.getElementById('scenarioText').value;
+
+            const fullContent = `
+Education Futures Scenario
+
+${elements}
+
+Story Development:
+${story}
+            `;
+
+            navigator.clipboard.writeText(fullContent).then(() => {
+                alert('Scenario copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy to clipboard. Please try selecting and copying the text manually.');
             });
         }
 
-        document.getElementById('storyInput').addEventListener('input', () => {
-            const previewBox = document.getElementById('previewBox');
-            const previewText = document.getElementById('previewText');
-            updateCapturedElements();
-            const elements = document.getElementById('capturedElements').innerText;
-            const story = document.getElementById('storyInput').value;
-            previewText.innerText = `${elements}\n\n${story}`;
-            previewBox.classList.add('active');
+        // Toggle example section
+        function toggleExample() {
+            const content = document.getElementById('exampleContent');
+            const toggle = document.querySelector('.example-toggle');
+            const icon = toggle.querySelector('.toggle-icon');
+            const isExpanded = content.classList.contains('hidden');
+
+            content.classList.toggle('hidden', !isExpanded);
+            icon.textContent = isExpanded ? '▲' : '▼';
+            toggle.setAttribute('aria-expanded', isExpanded);
+            content.setAttribute('aria-hidden', !isExpanded);
+        }
+
+        // Open help modal
+        function openHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.classList.add('show');
+        }
+
+        // Close help modal
+        function closeHelpModal() {
+            const modal = document.getElementById('helpModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (event) => {
+            const helpModal = document.getElementById('helpModal');
+            const loadModal = document.getElementById('loadModal');
+            if (event.target === helpModal) closeHelpModal();
+            if (event.target === loadModal) closeLoadModal();
+        });
+
+        // Close modals with Escape key
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeHelpModal();
+                closeLoadModal();
+            }
+        });
+
+        // Update counts on text input
+        document.getElementById('scenarioText').addEventListener('input', updateCounts);
+
+        // Initialize writing space state
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('writingSpace').classList.add('opacity-50', 'pointer-events-none');
+            document.getElementById('scenarioText').disabled = true;
+            updateCounts();
         });
     </script>
 </body>
