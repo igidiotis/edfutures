@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Classroom Builder - Education Futures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .draggable {
+            cursor: move;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .draggable:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .classroom {
+            background-image: url('https://via.placeholder.com/1200x800/f0f0f0/909090?text=');
+            background-size: cover;
+            background-position: center;
+        }
+        .item-in-classroom {
+            position: absolute;
+            z-index: 10;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">Design Your Classroom of 2045</h1>
+            <p class="mt-2 text-gray-600 max-w-3xl mx-auto">
+                Explore possible futures of education by building your own classroom of 2045. Drag and drop futuristic elements to create your vision, then generate a story about your creation!
+            </p>
+            <p class="mt-2 text-gray-500">
+                Part of <a href="#" id="mainProjectLink" class="text-green-600 hover:underline">Education Futures Generator</a> research project
+            </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Sidebar with Elements -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Futuristic Elements</h2>
+                <p class="text-sm text-gray-600 mb-4">Drag elements to place them in your classroom</p>
+                
+                <div class="space-y-4 overflow-y-auto max-h-[500px] p-2">
+                    <!-- AI Teacher -->
+                    <div class="draggable bg-blue-100 p-3 rounded-lg flex items-center" draggable="true" data-type="ai-teacher">
+                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Holographic Teacher</h3>
+                            <p class="text-xs text-gray-600">AI-powered teaching assistant that can split into multiple instances</p>
+                        </div>
+                    </div>
+
+                    <!-- Neural Interfaces -->
+                    <div class="draggable bg-purple-100 p-3 rounded-lg flex items-center" draggable="true" data-type="neural-interface">
+                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Neural Headbands</h3>
+                            <p class="text-xs text-gray-600">Transfers language skills and knowledge in hours instead of months</p>
+                        </div>
+                    </div>
+
+                    <!-- VR Environment -->
+                    <div class="draggable bg-green-100 p-3 rounded-lg flex items-center" draggable="true" data-type="vr-environment">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Historical Simulator</h3>
+                            <p class="text-xs text-gray-600">VR system that recreates any historical moment with perfect accuracy</p>
+                        </div>
+                    </div>
+
+                    <!-- Smart Furniture -->
+                    <div class="draggable bg-yellow-100 p-3 rounded-lg flex items-center" draggable="true" data-type="smart-furniture">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Adaptive Furniture</h3>
+                            <p class="text-xs text-gray-600">Reshapes itself based on learning activities and student needs</p>
+                        </div>
+                    </div>
+
+                    <!-- Collaborative Walls -->
+                    <div class="draggable bg-red-100 p-3 rounded-lg flex items-center" draggable="true" data-type="collab-wall">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Knowledge Walls</h3>
+                            <p class="text-xs text-gray-600">Interactive surfaces where 10,000+ minds solve problems together</p>
+                        </div>
+                    </div>
+
+                    <!-- Bio-feedback System -->
+                    <div class="draggable bg-indigo-100 p-3 rounded-lg flex items-center" draggable="true" data-type="bio-feedback">
+                        <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center mr-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">Emotion Reader</h3>
+                            <p class="text-xs text-gray-600">Adjusts content difficulty based on student engagement and emotions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classroom Canvas -->
+            <div class="col-span-2">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800 flex justify-between items-center">
+                        <span>Your 2045 Classroom</span>
+                        <button id="resetBtn" class="text-sm px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors">Reset</button>
+                    </h2>
+                    <div id="classroom" class="classroom relative w-full h-[500px] rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
+                        <p id="dropPrompt" class="text-gray-400">Drag elements here to build your classroom</p>
+                    </div>
+                </div>
+
+                <!-- Scenario Generation Panel -->
+                <div id="scenarioPanel" class="mt-6 bg-white p-6 rounded-lg shadow-md hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-800">Your Future Classroom Scenario</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Elements in your classroom:</h3>
+                        <ul id="elementsList" class="list-disc pl-5 text-gray-600"></ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Educational Philosophy:</h3>
+                        <div id="educationalPhilosophy" class="bg-gray-50 p-4 rounded-lg text-gray-700"></div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Generated Story Starter:</h3>
+                        <div id="storyStarter" class="bg-gray-50 p-4 rounded-lg text-gray-700"></div>
+                    </div>
+                    
+                    <div class="flex justify-between flex-wrap gap-4">
+                        <button id="regenerateBtn" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Regenerate Story
+                        </button>
+                        <button id="fullGeneratorBtn" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                            Try the Full Generator →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">How This Relates to Education Futures Research</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-800 mb-2">Speculative Design</h3>
+                    <p class="text-gray-700">This builder allows you to engage in speculative design - imagining possible futures to better understand the potential impacts of emerging technologies on education.</p>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-2">The Four Elements</h3>
+                    <p class="text-gray-700">Like the main generator, this tool explores the intersection of ARCs (future scenarios), OBJECTs (innovative technologies), TERRAINs (educational contexts), and MOODs (emotional responses).</p>
+                </div>
+                
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 mb-2">PhD Research</h3>
+                    <p class="text-gray-700">This interactive experience is part of PhD research exploring how educators and stakeholders imagine AI's socio-technical impact on future learning environments.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center border-t border-gray-300 pt-6 mt-8">
+            <p class="text-gray-600">
+                Created by <a href="https://www.kth.se/profile/gidiotis" target="_blank" class="text-green-600 hover:underline">Iosif Gidiotis</a>
+            </p>
+            <p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" class="text-green-600 hover:underline">CC BY-NC-SA 4.0</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Drag and Drop functionality
+        let placedItems = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const draggables = document.querySelectorAll('.draggable');
+            const classroom = document.getElementById('classroom');
+            const dropPrompt = document.getElementById('dropPrompt');
+            const resetBtn = document.getElementById('resetBtn');
+            const scenarioPanel = document.getElementById('scenarioPanel');
+            const regenerateBtn = document.getElementById('regenerateBtn');
+            const fullGeneratorBtn = document.getElementById('fullGeneratorBtn');
+            
+            // Set up drag events for draggable items
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', draggable.getAttribute('data-type'));
+                    setTimeout(() => {
+                        draggable.classList.add('opacity-50');
+                    }, 0);
+                });
+                
+                draggable.addEventListener('dragend', function() {
+                    draggable.classList.remove('opacity-50');
+                });
+            });
+            
+            // Set up drop events for classroom
+            classroom.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                classroom.classList.add('bg-gray-100');
+            });
+            
+            classroom.addEventListener('dragleave', function() {
+                classroom.classList.remove('bg-gray-100');
+            });
+            
+            classroom.addEventListener('drop', function(e) {
+                e.preventDefault();
+                classroom.classList.remove('bg-gray-100');
+                
+                const itemType = e.dataTransfer.getData('text/plain');
+                if (!itemType) return;
+                
+                // Calculate position relative to the classroom
+                const rect = classroom.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Create and place the item
+                placeItem(itemType, x, y);
+                
+                // Hide the prompt if items are placed
+                if (placedItems.length > 0) {
+                    dropPrompt.classList.add('hidden');
+                    
+                    // Show scenario panel if we have 3 or more items
+                    if (placedItems.length >= 3 && scenarioPanel.classList.contains('hidden')) {
+                        scenarioPanel.classList.remove('hidden');
+                        scenarioPanel.classList.add('fade-in');
+                        generateScenario();
+                    }
+                }
+            });
+            
+            // Reset button functionality
+            resetBtn.addEventListener('click', function() {
+                // Remove all placed items
+                placedItems.forEach(item => {
+                    if (item.element) {
+                        item.element.remove();
+                    }
+                });
+                
+                placedItems = [];
+                dropPrompt.classList.remove('hidden');
+                scenarioPanel.classList.add('hidden');
+            });
+            
+            // Regenerate button functionality
+            regenerateBtn.addEventListener('click', generateScenario);
+            
+            // Full generator button
+            fullGeneratorBtn.addEventListener('click', function() {
+                alert('This would link to the full Education Futures Generator. In a real implementation, this would redirect to your main project.');
+            });
+        });
+        
+        function placeItem(itemType, x, y) {
+            const classroom = document.getElementById('classroom');
+            const itemData = getItemData(itemType);
+            
+            // Create the DOM element
+            const item = document.createElement('div');
+            item.classList.add('item-in-classroom', 'absolute', 'p-2', 'rounded-lg', 'shadow-lg', 'fade-in');
+            item.style.left = `${x - 50}px`;
+            item.style.top = `${y - 50}px`;
+            item.style.backgroundColor = itemData.bgColor;
+            
+            // Item content
+            item.innerHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 ${itemData.iconBg} rounded-full flex items-center justify-center mb-1">
+                        ${itemData.icon}
+                    </div>
+                    <span class="text-xs font-semibold text-center">${itemData.name}</span>
+                </div>
+            `;
+            
+            // Make it movable
+            makeItemMovable(item);
+            
+            // Add to classroom
+            classroom.appendChild(item);
+            
+            // Add to our tracking array
+            placedItems.push({
+                type: itemType,
+                name: itemData.name,
+                description: itemData.description,
+                element: item,
+                x: x,
+                y: y
+            });
+            
+            // If we have 3 or more items, generate a scenario
+            if (placedItems.length >= 3) {
+                generateScenario();
+            }
+            
+            return item;
+        }
+        
+        function makeItemMovable(element) {
+            let isDragging = false;
+            let offsetX, offsetY;
+            
+            element.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                offsetX = e.clientX - element.getBoundingClientRect().left;
+                offsetY = e.clientY - element.getBoundingClientRect().top;
+                element.classList.add('z-20', 'cursor-grabbing');
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                
+                const classroom = document.getElementById('classroom');
+                const rect = classroom.getBoundingClientRect();
+                
+                // Calculate new position within classroom boundaries
+                let newX = e.clientX - rect.left - offsetX;
+                let newY = e.clientY - rect.top - offsetY;
+                
+                // Apply boundaries
+                newX = Math.max(0, Math.min(newX, rect.width - element.offsetWidth));
+                newY = Math.max(0, Math.min(newY, rect.height - element.offsetHeight));
+                
+                element.style.left = `${newX}px`;
+                element.style.top = `${newY}px`;
+            });
+            
+            document.addEventListener('mouseup', function() {
+                if (isDragging) {
+                    isDragging = false;
+                    element.classList.remove('z-20', 'cursor-grabbing');
+                    
+                    // Update item position in our tracking array
+                    for (let i = 0; i < placedItems.length; i++) {
+                        if (placedItems[i].element === element) {
+                            placedItems[i].x = parseInt(element.style.left) + 50;
+                            placedItems[i].y = parseInt(element.style.top) + 50;
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+        
+        function getItemData(type) {
+            const items = {
+                'ai-teacher': {
+                    name: 'Holographic Teacher',
+                    description: 'AI-powered teaching assistant that can split into multiple instances',
+                    bgColor: '#EBF5FF',
+                    iconBg: 'bg-blue-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>'
+                },
+                'neural-interface': {
+                    name: 'Neural Headband',
+                    description: 'Transfers language skills and knowledge in hours instead of months',
+                    bgColor: '#F5EBFF',
+                    iconBg: 'bg-purple-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>'
+                },
+                'vr-environment': {
+                    name: 'Historical Simulator',
+                    description: 'VR system that recreates any historical moment with perfect accuracy',
+                    bgColor: '#EBFFF0',
+                    iconBg: 'bg-green-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>'
+                },
+                'smart-furniture': {
+                    name: 'Adaptive Furniture',
+                    description: 'Reshapes itself based on learning activities and student needs',
+                    bgColor: '#FFFBEB',
+                    iconBg: 'bg-yellow-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>'
+                },
+                'collab-wall': {
+                    name: 'Knowledge Wall',
+                    description: 'Interactive surface where 10,000+ minds solve problems together',
+                    bgColor: '#FFF1F0',
+                    iconBg: 'bg-red-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>'
+                },
+                'bio-feedback': {
+                    name: 'Emotion Reader',
+                    description: 'Adjusts content difficulty based on student engagement and emotions',
+                    bgColor: '#EEF2FF',
+                    iconBg: 'bg-indigo-500',
+                    icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>'
+                }
+            };
+            
+            return items[type] || {
+                name: 'Unknown Item',
+                description: 'An unidentified classroom element',
+                bgColor: '#F3F4F6',
+                iconBg: 'bg-gray-500',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+            };
+        }
+        
+        function generateScenario() {
+            const elementsList = document.getElementById('elementsList');
+            const educationalPhilosophy = document.getElementById('educationalPhilosophy');
+            const storyStarter = document.getElementById('storyStarter');
+            
+            // Update elements list
+            elementsList.innerHTML = '';
+            placedItems.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${item.name}</strong>: ${item.description}`;
+                elementsList.appendChild(li);
+            });
+            
+            // Generate educational philosophy based on items
+            const philosophies = [
+                "This classroom embodies experiential learning, where students engage with knowledge through direct interaction rather than passive reception.",
+                "The design reflects a constructivist approach, allowing students to build their own understanding through exploration and collaboration.",
+                "This environment supports personalized learning paths, adapting to each student's unique abilities, interests, and pace.",
+                "The classroom represents a blend of high-tech tools and human connection, where technology enhances rather than replaces the social aspects of learning.",
+                "This setup emphasizes skills development over content memorization, preparing students for a rapidly changing future.",
+                "The classroom design supports project-based learning, where students tackle real-world challenges with cutting-edge tools."
+            ];
+            
+            educationalPhilosophy.textContent = philosophies[Math.floor(Math.random() * philosophies.length)];
+            
+            // Generate story starter based on items
+            const storyStarters = [
+                `As Maya entered the classroom of 2045, the ${getRandomItemName()} adjusted to her preferred learning state. The ${getRandomItemName()} was already displaying her personalized learning path for the day. "Today we're exploring the Renaissance period," announced the ${getRandomItemName()}, splitting into smaller instances to work with each student group.`,
+                
+                `Professor Chen activated the ${getRandomItemName()} while students adjusted their ${getRandomItemName()}. "Who's ready to solve today's global challenge?" he asked. The ${getRandomItemName()} began collecting and synthesizing ideas from thousands of students around the world who were joining the collaborative session.`,
+                
+                `The school building itself was nothing special from the outside, but inside, the ${getRandomItemName()} transformed the space into an ancient marketplace. Students could feel the textures through their ${getRandomItemName()}, while the ${getRandomItemName()} adapted to their emotional responses, adjusting the experience for optimal learning.`,
+                
+                `"Remember when we needed textbooks?" laughed Sofia as she calibrated her ${getRandomItemName()}. Her classmate Alex was already deep in conversation with the ${getRandomItemName()}, which was helping him visualize complex quantum principles in a way his specific learning style could understand.`
+            ];
+            
+            storyStarter.textContent = storyStarters[Math.floor(Math.random() * storyStarters.length)];
+        }
+        
+        function getRandomItemName() {
+            if (placedItems.length === 0) return "learning device";
+            return placedItems[Math.floor(Math.random() * placedItems.length)].name;
+        }
+    </script>
+</body>
+</html>
