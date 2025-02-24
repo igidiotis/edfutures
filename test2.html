@@ -600,17 +600,17 @@ ${story}
         }
 
         // Toggle example section
-        function toggleExample() {
-            const content = document.getElementById('exampleContent');
-            const toggle = document.querySelector('.example-toggle');
-            const icon = toggle.querySelector('.toggle-icon');
-            const isExpanded = content.classList.contains('hidden');
+function toggleExample() {
+    const content = document.getElementById('exampleContent');
+    const toggle = document.querySelector('button[aria-controls="exampleContent"]');
+    const icon = toggle.querySelector('.toggle-icon');
+    const isExpanded = content.classList.contains('hidden');
 
-            content.classList.toggle('hidden', !isExpanded);
-            icon.textContent = isExpanded ? '▲' : '▼';
-            toggle.setAttribute('aria-expanded', isExpanded);
-            content.setAttribute('aria-hidden', !isExpanded);
-        }
+    content.classList.toggle('hidden', !isExpanded);
+    icon.textContent = isExpanded ? '▲' : '▼';
+    toggle.setAttribute('aria-expanded', isExpanded);
+    content.setAttribute('aria-hidden', !isExpanded);
+}
 
         // Open help modal
         function openHelpModal() {
